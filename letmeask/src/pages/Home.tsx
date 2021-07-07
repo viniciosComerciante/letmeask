@@ -9,13 +9,19 @@ import googleIconImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 
 import '../styles/auth.scss'
+import { useAuth } from '../hooks/useAuth'
 
 
 export const Home = () => {
 
     const history = useHistory();
+    const { signInWithGoogle, user } = useAuth();
+    async function handleCreateRoom() {
 
-    function handleCreateRoom() {
+        if (!user) {
+            await signInWithGoogle();
+        }
+
         history.push("/rooms/new");
     }
 
